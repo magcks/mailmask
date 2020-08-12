@@ -1,0 +1,11 @@
+[Unit]
+Description=A milter that masks your mail address
+
+[Service]
+Type=forking
+PIDFile=/var/run/mailmask.pid
+ExecStart=@CMAKE_INSTALL_PREFIX@/bin/mailmask -d -p /var/run/mailmask.pid -u mailmask -g mailmask -m 002 -s /var/spool/postfix/mailmask/mailmask -c /etc/mailmask.conf
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
